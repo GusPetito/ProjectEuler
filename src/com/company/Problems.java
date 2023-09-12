@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class Problems {
     public static int problem1(int n) {
@@ -110,6 +111,7 @@ public class Problems {
         return largestPalindrome;
     }
 
+    // Recursion-esque
     public static int problem5(int maxNum) {
         int currProduct = maxNum;
         int currNum = maxNum - 1;
@@ -118,5 +120,15 @@ public class Problems {
             currNum--;
         }
         return currProduct;
+    }
+
+    // Brute force
+    public static int problem6(int maxNum) {
+        int result = ((maxNum+1) * maxNum / 2);
+        result = result * result;
+        for (int i = 1; i <= maxNum; i++) {
+            result -= i * i;
+        }
+        return result;
     }
 }
