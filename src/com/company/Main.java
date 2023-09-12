@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // Run and time method
         long startTime = System.nanoTime();
-        int result = problem4(999);
+        int result = problem5(20);
         long endTime = System.nanoTime();
 //        System.out.println(result);
         System.out.println(String.format("Result: %d", result));
@@ -30,6 +30,17 @@ public class Main {
         }
 
         return true;
+    }
+
+    // Least common multiple of positive integers a and b
+    private static int lcm(int a, int b) {
+        int currAMultiple = a;
+        int currBMultiple = b;
+        while (currAMultiple != currBMultiple) {
+            if (currAMultiple > currBMultiple) currBMultiple += b;
+            else currAMultiple += a;
+        }
+        return currAMultiple;
     }
 
     private static int problem1(int n) {
@@ -137,5 +148,15 @@ public class Main {
         }
 
         return largestPalindrome;
+    }
+
+    private static int problem5(int maxNum) {
+        int currProduct = maxNum;
+        int currNum = maxNum - 1;
+        while (currNum > 0) {
+            currProduct = lcm(currProduct, currNum);
+            currNum--;
+        }
+        return currProduct;
     }
 }
