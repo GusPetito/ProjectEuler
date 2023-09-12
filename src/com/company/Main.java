@@ -8,13 +8,28 @@ public class Main {
     public static void main(String[] args) {
         // Run and time method
         long startTime = System.nanoTime();
-        int result = problem3(600851475143L);
+        int result = problem4(999);
         long endTime = System.nanoTime();
+//        System.out.println(result);
         System.out.println(String.format("Result: %d", result));
 
         double durationSeconds = (endTime - startTime) / 1e9;
         String isSuccess = durationSeconds <= 60 ? "success!" : "fail";
         System.out.println(String.format("Ran in %.2f seconds, %s", durationSeconds, isSuccess));
+    }
+
+    // Returns true iff s is a palindrome, i.e. reads the same backwards and forwards
+    // One and zero character strings are degenerate palindromes
+    private static boolean isPalindrome(String s) {
+        int leftCounter = 0;
+        int rightCounter = s.length() - 1;
+        while (leftCounter < rightCounter) {
+            if (s.charAt(leftCounter) != s.charAt(rightCounter)) return false;
+            leftCounter++;
+            rightCounter--;
+        }
+
+        return true;
     }
 
     private static int problem1(int n) {
@@ -87,5 +102,40 @@ public class Main {
         if (currentNum > 1 && currentNum > maxPrime) return (int)currentNum;
 
         return maxPrime;
+    }
+
+    private static int problem4(int maxNum) {
+        // Find ~a~ palindrome
+        int leftNum = maxNum + 1;
+        int rightNum = maxNum;
+        int currProduct;
+        do  {
+            if (leftNum > 1) {
+                leftNum--;
+            } else {
+                leftNum = maxNum;
+                rightNum--;
+            }
+            currProduct = leftNum * rightNum;
+        } while (!isPalindrome(Integer.toString(currProduct)));
+
+        int largestPalindrome = currProduct;
+
+        // Find all palindromes where both numbers are greater than the min of leftNum and rightNum
+        int minNum = Math.min(leftNum, rightNum);
+        int currLeftNum = minNum;
+        while (currLeftNum <= maxNum) {
+            int currRightNum = minNum;
+            while (currRightNum <= maxNum) {
+                currProduct = currLeftNum * currRightNum;
+                if (isPalindrome(Integer.toString(currProduct)) && currProduct > largestPalindrome) {
+                    largestPalindrome = currProduct;
+                }
+                currRightNum++;
+            }
+            currLeftNum++;
+        }
+
+        return largestPalindrome;
     }
 }
