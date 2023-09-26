@@ -31,49 +31,37 @@ public class Problems {
     }
 
     public static int problem3(long n) {
-        boolean[] possiblePrimes = new boolean[(int)Math.sqrt(n)];
-        Arrays.fill(possiblePrimes, true);
-
-        long currentNum = n;
-        int sieveIndex = -1;
         int maxPrime = 1;
-        int i;
+        long currentNum = n;
 
-        while (currentNum > 1 && sieveIndex < possiblePrimes.length-1) {
-            boolean runLoop = true;
+        // Get array of primes
+        boolean[] possiblePrimes = Helpers.sieveOfEratosthenes((int)Math.sqrt(n));
+
+        int i = 0;
+        while (currentNum > 1 && i < possiblePrimes.length) {
+            // i is the index for possiblePrimes array, i + 2 is the actual number
             i = 0;
-            // i is the array index, i+2 is the actual factor
+            boolean runLoop = true;
             while (runLoop) {
                 if (possiblePrimes[i]) {
-                    int factor = i + 2;
-                    if (i > sieveIndex) {
-                        // We haven't gotten this far in a prior run
-                        for (int j = factor * 2; j <= possiblePrimes.length; j += factor) {
-                            // Set all of factors of this prime to false
-                            possiblePrimes[j - 2] = false;
-                        }
-                    }
-                    if (currentNum % factor == 0) {
-                        // factor is a prime factor of n
-                        currentNum /= factor;
-                        if (factor > maxPrime) maxPrime = factor;
+                    // prime is a prime number
+                    int prime = i + 2;
+                    if (currentNum % prime == 0) {
+                        // prime is a prime factor of n
+                        // Divide it out of currentNum and compare it to maxPrime
+                        if (prime > maxPrime) maxPrime = prime;
+                        currentNum /= prime;
+
+                        // Set runLoop to false so we look for primes from the beginning
                         runLoop = false;
                     }
                 }
-
-                if (i == possiblePrimes.length - 1) {
-                    // We've reached the end
-                    runLoop = false;
-                }
-
-                if (i > sieveIndex) sieveIndex = i;
                 i++;
             }
         }
 
-        if (currentNum > 1 && currentNum > maxPrime) return (int)currentNum;
-
         return maxPrime;
+
     }
 
     public static int problem4(int maxNum) {
