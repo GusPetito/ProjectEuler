@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Helpers {
     // Returns true iff s is a palindrome, i.e. reads the same backwards and forwards
@@ -28,11 +29,22 @@ public class Helpers {
         return currAMultiple;
     }
 
-    // Return boolean array of length arrayLength
-    // If result[i] is true, i+2 is a prime number
+    // sieveOfEratosthenes with no starter array
     public static boolean[] sieveOfEratosthenes(int arrayLength) {
+        return sieveOfEratosthenes(arrayLength, new boolean[] {});
+    }
+
+    // Return boolean array of length arrayLength
+    // arrayLength should be greater than starterArray.length
+    // starterArray should be a correct possiblePrimes starter
+    // If result[i] is true, i+2 is a prime number
+    public static boolean[] sieveOfEratosthenes(int arrayLength, boolean[] starterArray) {
+        // Extend starter array
         boolean[] possiblePrimes = new boolean[arrayLength];
-        Arrays.fill(possiblePrimes, true);
+        for (int i = 0; i < arrayLength; i++) {
+            if (i < starterArray.length) possiblePrimes[i] = starterArray[i];
+            else possiblePrimes[i] = true;
+        }
 
         // i is the array index of possible primes, i+2 is the actual number
         for (int i = 0; i < arrayLength; i++) {

@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         // Run and time method
         long startTime = System.nanoTime();
-        int result = Problems.problem3(600851475143L);
+        int result = Problems.problem7(10001);
         long endTime = System.nanoTime();
 //        System.out.println(result);
         System.out.println(String.format("Result: %d", result));

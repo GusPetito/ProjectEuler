@@ -119,4 +119,30 @@ public class Problems {
         }
         return result;
     }
+
+    // Solved by incrementally doubling sieve length
+    public static int problem7(int n) {
+        // If numPrime is x, then the current prime is the xth prime
+        int numPrime = 0;
+        boolean[] primeArray = new boolean[0];
+        int sieveLength = n;
+        int i = 0;
+
+        while (true) {
+            // We haven't found the nth prime yet
+            // Double length of the sieve and keep searching
+            sieveLength *= 2;
+            primeArray = Helpers.sieveOfEratosthenes(sieveLength, primeArray);
+            for (int j = i; j < primeArray.length; j++) {
+                if (primeArray[j]) {
+                    numPrime++;
+                    if (numPrime == n) {
+                        // We've found the nth prime; return it
+                        return j + 2;
+                    }
+                }
+            }
+            i = primeArray.length;
+        }
+    }
 }
