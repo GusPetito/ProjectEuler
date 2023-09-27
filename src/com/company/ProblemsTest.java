@@ -108,4 +108,15 @@ class ProblemsTest {
         assertTimeoutPreemptively(Duration.ofSeconds(60), () -> Problems.problem9(1000));
         assertEquals(Problems.problem9(1000), 31875000);
     }
+
+    @Test
+    void problem10example() {
+        assertEquals(Problems.problem10(10), 17);
+    }
+
+    @Test
+    void problem10() {
+        assertTimeoutPreemptively(Duration.ofSeconds(60), () -> Problems.problem10(2000000));
+        assertEquals(Problems.problem10(2000000), 142913828922L);
+    }
 }

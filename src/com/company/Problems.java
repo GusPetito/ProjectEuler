@@ -201,4 +201,15 @@ public class Problems {
             a++;
         }
     }
+
+    public static long problem10(int maxPrime) {
+        // If arrayLength is 1, the only number we get is 2
+        // which is what we want if maxPrime is 3, for example
+        boolean[] primeArray = Helpers.sieveOfEratosthenes(maxPrime - 2);
+        long result = 0;
+        for (int i = 0; i < primeArray.length; i++) {
+            if (primeArray[i]) result += 2 + i;
+        }
+        return result;
+    }
 }
