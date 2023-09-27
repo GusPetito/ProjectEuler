@@ -60,4 +60,9 @@ public class Helpers {
 
         return possiblePrimes;
     }
+
+    public static boolean isPerfectSquare(double num) {
+        double rootedNum = Math.sqrt(num);
+        return Math.floor(rootedNum) == Math.ceil(rootedNum);
+    }
 }

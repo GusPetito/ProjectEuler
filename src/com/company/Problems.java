@@ -182,4 +182,23 @@ public class Problems {
 
         return maxProduct;
     }
+
+    // Brute force
+    public static int problem9(int sum) {
+        int a = 1;
+        while (true) {
+            // Loop over a
+            for (int b = 1; b < sum - a; b++) {
+                // Loop over b
+                int cSquared = a*a + b*b;
+                if (Helpers.isPerfectSquare(cSquared)) {
+                    // This is a Pythagorean triplet
+                    // We just need to check if it sums up
+                    int c = (int)Math.sqrt(cSquared);
+                    if (a + b + c == sum) return a * b * c;
+                }
+            }
+            a++;
+        }
+    }
 }
